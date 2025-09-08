@@ -1,27 +1,300 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dekkei</title>
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-    </style>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Dekkei — Visual design & production</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;600&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--bg: #ffffff;
+			--text: #222;
+			--muted: #8b8b8b;
+			--accent: #111;
+			--max-width: 1100px;
+		}
+
+		* {
+			box-sizing: border-box
+		}
+
+		html,
+		body {
+			height: 100%
+		}
+
+		body {
+			margin: 0;
+			font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+			color: var(--text);
+			background: var(--bg);
+			-webkit-font-smoothing: antialiased;
+		}
+
+		header.site-header {
+			max-width: var(--max-width);
+			margin: 28px auto 14px;
+			padding: 0 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.brand {
+			letter-spacing: 6px;
+			font-weight: 300;
+			color: var(--muted)
+		}
+
+		.menu {
+			width: 32px;
+			height: 22px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between
+		}
+
+		.menu span {
+			display: block;
+			height: 3px;
+			background: #eee;
+			border-radius: 2px
+		}
+
+		/* Hero */
+		.hero {
+			max-width: var(--max-width);
+			margin: 0 auto;
+			padding: 0 20px 18px;
+		}
+
+		.hero-inner {
+			position: relative;
+			background: #000;
+			overflow: hidden;
+		}
+
+		.hero-inner img {
+			width: 100%;
+			height: auto;
+			display: block;
+			filter: contrast(0.95) brightness(0.9);
+		}
+
+		.hero-overlay {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			pointer-events: none;
+			color: rgba(255, 255, 255, 0.95);
+			text-align: center;
+		}
+
+		.site-title {
+			font-weight: 300;
+			font-size: clamp(32px, 8vw, 120px);
+			letter-spacing: 0.5em;
+			line-height: 0.9;
+			margin: 0 auto;
+			transform: translateY(-6%);
+			max-width: 90%;
+			text-align: center;
+}
+
+@media (max-width: 600px) {
+  .site-title {
+    font-size: 8vw;
+    letter-spacing: 0.2em;
+    max-width: 100%;
+    white-space: normal;
+  }
+		}
+
+		.site-sub {
+			font-weight: 300;
+			color: rgba(255, 255, 255, 0.9);
+			font-size: 14px;
+			letter-spacing: 0.08em;
+			margin-top: 8px
+		}
+
+		/* Content */
+		main {
+			max-width: var(--max-width);
+			margin: 24px auto;
+			padding: 0 20px
+		}
+
+		.split {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 0px;
+			align-items: start
+		}
+
+		.left-title {
+			font-size: 44px;
+			font-weight: 200;
+			line-height: 1.05;
+			margin: 8px 0 0;
+			color: var(--accent)
+		}
+
+		.right-copy {
+			color: var(--muted);
+			font-size: 14px;
+			line-height: 1.6
+		}
+
+		/* Make right-copy text darker for readability */
+		.right-copy {
+			color: #444;
+			font-size: 14px;
+			line-height: 1.6
+		}
+
+		hr.rule {
+			border: none;
+			border-top: 1px solid #ddd;
+			margin: 28px 0
+		}
+
+		.contact {
+			display: flex;
+			gap: 28px;
+			align-items: flex-start
+		}
+
+		.contact h3 {
+			font-weight: 200;
+			font-size: 32px;
+			margin: 0 0 8px
+		}
+
+		/* Make contact info text darker for readability */
+		.contact p {
+			margin: 0;
+			color: #444;
+			font-size: 14px
+		}
+
+		footer {
+			max-width: var(--max-width);
+			padding: 0 20px;
+			height: 10px;
+		}
+
+		/* Responsive */
+		@media (max-width:900px) {
+			.site-title {
+				font-size: 10vw;
+				letter-spacing: 0.6em
+			}
+
+			.split {
+				grid-template-columns: 1fr
+			}
+
+			.left-title {
+				font-size: 32px
+			}
+
+			.hero {
+				margin-bottom: 8px
+			}
+		}
+
+		@media (max-width:480px) {
+			header.site-header {
+				margin: 18px auto
+			}
+
+			.site-title {
+				letter-spacing: 0.35em
+			}
+		}
+		a.fireitapp {
+			font-family: 'Orbitron', sans-serif;
+			letter-spacing: 0.04em;
+		}
+	</style>
 </head>
+
 <body>
-    <h1 id="title">
-        <span>hello@dekkei.fi</span>
-    </h1>
+	<header class="site-header">
+		<div class="brand" aria-hidden="true">DEKKEI</div>
+		<!-- menu placeholder to be enabled later
+		<div class="menu" aria-hidden="true" title="Menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		-->
+	</header>
+
+	<div class="hero">
+		<div class="hero-inner">
+			<!-- Replace assets/hero.jpg with the provided image -->
+			<img src="assets/hero.jpg" alt="Athlete wrapping hands" />
+			<div class="hero-overlay">
+				<h1 class="site-title">DEKKEI</h1>
+				<div class="site-sub">Design &amp; Production</div>
+			</div>
+		</div>
+	</div>
+	
+	<main>
+		<div class="split">
+			<div>
+				<h2 class="left-title">Design</h2>
+			</div>
+			<div class="right-copy">
+				<p>DEKKEI is a specialized graphic design agency focused on the visualization of strategic materials. We help organizations transform complex information into clear, impactful visuals that communicate key messages with precision and clarity. Our expertise lies in translating dense, technical, or multifaceted content into accessible and insightful formats—ensuring that every element is not only visually engaging but also aligned with your strategic objectives. With a strong emphasis on detail, consistency, and clarity, we make sure your information is not just seen, but truly understood.</p>
+			</div>
+		</div>
+	
+		<hr class="rule" />
+	
+		<div class="split">
+			<div>
+				<h2 class="left-title">Production</h2>
+			</div>
+			<div class="right-copy">
+				<p>Business strategy visualization – Strategic frameworks – Company presentations – Sales decks – Visual solutions – Presentation solutions – Presentation templates – Corporate hierarchies – Company onesliders – Infographics – Document templates – Workspaces – Customer segmentation – Customer journeys – Qualitative and quantitative reports – Brand playbooks – Trend reports – Industry radars – Editable page templates – Project management tools – Social media templates – Educational materials – Visual consultation – Presentation related technical support and training</p>
+			</div>
+		</div> 
+	
+		<hr class="rule" />
+
+		<div class="split">
+			<div>
+				<h2 class="left-title">Contact</h2>
+			</div>
+			<div class="right-copy">
+				<p>Dekkei Design &amp; Production<br />Hitsaajankatu 13 B 43, 00810 Helsinki,
+					Finland<br /> <a href="mailto:info@dekkei.fi">info@dekkei.fi</a></p>
+			</div>
+		</div>
+		<hr class="rule" />
+
+		<div class="split">
+			<div>
+			</div>
+			<div class="right-copy">
+				<p>Photo by Aliya Amangeldi<br />
+				Web by <a href="mailto:hello@fireitapp.com">Fire It App</a></p>
+			</div>
+		</div>
+	</main>
+	<footer>
+
+	</footer>
 </body>
+
 </html>
