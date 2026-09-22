@@ -3,47 +3,79 @@
 	 ===================== */
 :root {
 	--bg: #ffffff;
-	--text: #222;
-	--muted: #8b8b8b;
+	--text: #1d1d1f;
+	--body: #33363b;
+	--muted: #6f7277;
+	--line: #e3e4e6;
 	--accent: #111;
+	--link: #1b3fd4;
+	--link-hover: #0f2a97;
 	--max-width: 1100px;
+	--gutter: clamp(20px, 5vw, 40px);
 }
 
 * {
 	box-sizing: border-box;
 }
 
-html,
-body {
-	height: 100%;
+html {
+	scroll-behavior: smooth;
 }
 
 body {
 	margin: 0;
 	font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
-	color: var(--text);
+	font-size: clamp(16px, 0.55vw + 14.5px, 18px);
+	font-weight: 400;
+	line-height: 1.75;
+	color: var(--body);
 	background: var(--bg);
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
 }
 
 /* =====================
 	 Typography & Links
 	 ===================== */
 a {
-	color: #2e7cf6;
-	text-decoration: none;
-	transition: color 0.2s, box-shadow 0.2s;
+	color: var(--link);
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 4px;
+	transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
 a:hover,
-a:focus {
-	color: #174ea6;
-	box-shadow: 0 2px 0 0 #2e7cf6;
+a:focus-visible {
+	color: var(--link-hover);
+	text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+	outline: 2px solid var(--link);
+	outline-offset: 3px;
+}
+
+.skip-link {
+	position: absolute;
+	left: -9999px;
+	top: 0;
+	z-index: 10;
+	background: #fff;
+	padding: 10px 16px;
+	font-size: 14px;
+}
+
+.skip-link:focus {
+	left: 12px;
+	top: 12px;
 }
 
 .brand {
-	letter-spacing: 6px;
-	font-weight: 300;
+	letter-spacing: 0.42em;
+	font-size: 14px;
+	font-weight: 500;
 	color: var(--muted);
 }
 
@@ -56,15 +88,17 @@ a:focus {
 	transform: translateY(-6%);
 	max-width: 90%;
 	text-align: center;
+	text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
 }
 
 .site-sub {
-	font-weight: 300;
-	color: rgba(255, 255, 255, 0.9);
-	font-size: 14px;
-	letter-spacing: 0.08em;
-	margin-top: 8px;
-	margin-right: 10px;
+	font-weight: 400;
+	color: #fff;
+	font-size: clamp(13px, 1.4vw, 17px);
+	letter-spacing: 0.22em;
+	margin-top: 14px;
+	margin-right: -0.22em;
+	text-shadow: 0 2px 18px rgba(0, 0, 0, 0.5);
 }
 
 /* =====================
@@ -72,45 +106,44 @@ a:focus {
 	 ===================== */
 header.site-header {
 	max-width: var(--max-width);
-	margin: 28px auto 14px;
-	padding: 0 20px;
+	margin: 0 auto;
+	padding: clamp(22px, 4vw, 38px) var(--gutter) clamp(14px, 2vw, 20px);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-.menu {
-	width: 32px;
-	height: 22px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.menu span {
-	display: block;
-	height: 3px;
-	background: #eee;
-	border-radius: 2px;
-}
-
 main {
 	max-width: var(--max-width);
-	margin: 24px auto;
-	padding: 0 20px;
+	margin: 0 auto;
+	padding: clamp(28px, 6vw, 64px) var(--gutter) 0;
 }
 
 .split {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 0px;
+	grid-template-columns: minmax(180px, 0.75fr) minmax(0, 1.25fr);
+	gap: clamp(20px, 5vw, 64px);
 	align-items: start;
+	padding: clamp(8px, 2vw, 20px) 0;
 }
 
-footer {
+.split-head {
+	position: sticky;
+	top: clamp(24px, 6vw, 56px);
+}
+
+.site-footer {
 	max-width: var(--max-width);
-	padding: 0 20px;
-	height: 10px;
+	margin: 0 auto;
+	padding: clamp(28px, 5vw, 48px) var(--gutter) clamp(40px, 7vw, 72px);
+}
+
+.colophon {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.9;
+	color: var(--muted);
+	letter-spacing: 0.02em;
 }
 
 /* =====================
@@ -119,91 +152,165 @@ footer {
 .hero {
 	max-width: var(--max-width);
 	margin: 0 auto;
-	padding: 0 20px 18px;
+	padding: 0 var(--gutter);
 }
 
 .hero-inner {
 	position: relative;
-	background: #fff;
+	background: #0d0d0f;
 	overflow: hidden;
+	aspect-ratio: 3118 / 1754;
 }
 
+.hero-inner picture {
+	display: contents;
+}
+
+/* Bottom-anchored and taller than the frame: the hidden strip above is the
+   parallax travel, so the image can drift down without ever exposing a gap. */
 .hero-inner img {
+	position: absolute;
+	left: 0;
+	bottom: 0;
 	width: 100%;
-	height: 100%;
+	height: 122%;
 	object-fit: cover;
 	object-position: center;
 	display: block;
-	filter: contrast(0.95) brightness(0.9);
-	transition: transform 0.2s linear;
+	filter: contrast(0.95) brightness(0.92);
+	will-change: transform;
+}
+
+.hero-inner::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.04) 60%, rgba(0, 0, 0, 0.14) 100%);
+	pointer-events: none;
 }
 
 .hero-overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		pointer-events: none;
-		color: rgba(255, 255, 255, 0.95);
-		text-align: center;
-		margin: 0;
-		padding: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+	color: #fff;
+	text-align: center;
+	margin: 0;
+	padding: 0;
 }
 
 /* =====================
 	 Content Sections
 	 ===================== */
 .left-title {
-	font-size: 44px;
+	font-size: clamp(34px, 4.6vw, 54px);
 	font-weight: 200;
 	line-height: 1.05;
-	margin: 8px 0 0;
-	color: var(--accent);
+	letter-spacing: 0.005em;
+	margin: 0;
+	color: var(--text);
 }
 
 .right-copy {
-	color: #444;
-	font-size: 14px;
-	line-height: 1.6;
+	color: var(--body);
+	max-width: 62ch;
+}
+
+.right-copy p {
+	margin: 0 0 1.1em;
+}
+
+.right-copy p:last-child {
+	margin-bottom: 0;
+}
+
+.lead {
+	font-size: clamp(18px, 1.1vw + 14px, 22px);
+	font-weight: 300;
+	line-height: 1.55;
+	color: var(--text);
+}
+
+/* Keeps the designer's flowing dash-separated run, but each term stays
+   unbroken and the dashes read as hairlines instead of hyphens. */
+.service-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	row-gap: clamp(8px, 1.2vw, 14px);
+}
+
+.service-list li {
+	display: inline-flex;
+	align-items: center;
+	color: var(--text);
+	font-weight: 300;
+	letter-spacing: 0.015em;
+	line-height: 1.5;
+}
+
+.service-list li::after {
+	content: "";
+	flex: none;
+	width: 16px;
+	height: 1px;
+	margin: 0 14px;
+	background: var(--link);
+	opacity: 0.45;
+}
+
+.service-list li:last-child::after {
+	display: none;
+}
+
+.contact-details {
+	font-style: normal;
+	line-height: 1.9;
+}
+
+.contact-name {
+	display: block;
+	color: var(--text);
+	font-weight: 500;
+	letter-spacing: 0.02em;
+}
+
+.contact-mail {
+	display: inline-block;
+	margin-top: 14px;
 }
 
 hr.rule {
 	border: none;
-	border-top: 1px solid #ddd;
-	margin: 28px 0;
-}
-
-.contact {
-	display: flex;
-	gap: 28px;
-	align-items: flex-start;
-}
-
-.contact h3 {
-	font-weight: 200;
-	font-size: 32px;
-	margin: 0 0 8px;
-}
-
-.contact p {
-	margin: 0;
-	color: #444;
-	font-size: 14px;
+	border-top: 1px solid var(--line);
+	margin: clamp(28px, 5vw, 52px) 0;
 }
 
 /* =====================
-	 Miscellaneous
+	 Scroll reveal
 	 ===================== */
-a.fireitapp {
-	font-family: 'Orbitron', sans-serif;
-	letter-spacing: 0.04em;
+.js .reveal {
+	opacity: 0;
+	transform: translateY(14px);
+	transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.js .reveal.is-visible {
+	opacity: 1;
+	transform: none;
 }
 
 /* =====================
@@ -219,30 +326,51 @@ a.fireitapp {
 		grid-template-columns: 1fr;
 	}
 
-	.left-title {
-		font-size: 32px;
+	.split-head {
+		position: static;
 	}
 
-	.hero {
-		margin-bottom: 8px;
+	.right-copy {
+		max-width: none;
 	}
 }
 
 @media (max-width: 600px) {
 	.site-title {
-		font-size: 8vw;
-		letter-spacing: 0.2em;
+		font-size: 9vw;
+		letter-spacing: 0.24em;
 		max-width: 100%;
 		white-space: normal;
+	}
+
+	.hero-inner {
+		aspect-ratio: 4 / 3;
+	}
+
+	.service-list li::after {
+		width: 12px;
+		margin: 0 10px;
 	}
 }
 
 @media (max-width: 480px) {
-	header.site-header {
-		margin: 18px auto;
+	.site-title {
+		letter-spacing: 0.32em;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
 	}
 
-	.site-title {
-		letter-spacing: 0.35em;
+	.js .reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.hero-inner img {
+		transform: none !important;
 	}
 }
